@@ -25,9 +25,7 @@ export const uploadFile = (projectId: number, file: File) => {
   const form = new FormData()
   form.append('file', file)
   return api
-    .post<Project>(`/projects/${projectId}/upload`, form, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    })
+    .post<Project>(`/projects/${projectId}/upload`, form)
     .then((r) => parseOrWarn(ProjectSchema, r.data, 'uploadFile'))
 }
 
