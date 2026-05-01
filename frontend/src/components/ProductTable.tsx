@@ -52,7 +52,7 @@ export default function ProductTable({
     const dimCols = dimensions
       .filter((d) => d.approved)
       .map((dim) =>
-        helper.accessor((row) => row.categories?.[dim.name] ?? '', {
+        helper.accessor((row) => row.final_categories?.[dim.name] ?? '', {
           id: `cat_${dim.id}`,
           header: dim.name,
           cell: (info) => {

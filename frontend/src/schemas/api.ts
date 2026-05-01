@@ -182,6 +182,7 @@ export const DashboardDataSchema = z.object({
   total_products: z.number().int().min(0),
   kept_count: z.number().int().min(0),
   excluded_count: z.number().int().min(0),
+  pending_count: z.number().int().min(0),
   categorized_count: z.number().int().min(0),
   relevance_summary: z.array(RelevanceSummaryItemSchema),
   dimension_breakdowns: z.array(DimensionBreakdownSchema),

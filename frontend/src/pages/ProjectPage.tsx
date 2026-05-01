@@ -355,7 +355,7 @@ export default function ProjectPage() {
                   </button>
                 )}
 
-                {(project.status === 'uploaded' || project.status === 'relevance_review') && (
+                {(project.status === 'uploaded' || project.status === 'relevance_review' || project.status === 'relevance_pending') && (
                   <button
                     className="btn-primary flex items-center gap-1.5"
                     onClick={() => relevanceMut.mutate()}

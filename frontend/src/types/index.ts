@@ -87,7 +87,7 @@ export interface Dimension {
   id: number
   project_id: number
   name: string
-  description: string
+  description: string | null
   taxonomy_values: string[]
   approved: boolean
   order: number
