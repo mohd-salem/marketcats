@@ -157,7 +157,7 @@ export default function ProjectPage() {
       toast.success(`Loaded ${updated.product_count} products`)
       setTab('target')
     },
-    onError: () => toast.error('Upload failed'),
+    onError: (err: Error) => toast.error(`Upload failed: ${err.message}`),
   })
 
   const targetMut = useMutation({
@@ -301,6 +301,11 @@ export default function ProjectPage() {
               onUpload={(file) => uploadMut.mutate(file)}
               uploading={uploadMut.isPending}
             />
+            {uploadMut.isError && (
+              <div className="rounded border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+                {(uploadMut.error as Error).message}
+              </div>
+            )}
             {project.status !== 'created' && (
               <div className="flex justify-end pt-2">
                 <button className="btn-primary" onClick={() => setTab('target')}>
