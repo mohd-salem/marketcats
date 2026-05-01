@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+import os
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -20,15 +21,18 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+# Allow all origins when CORS_ALLOW_ALL=true (set in Railway for cross-origin access)
+_allow_all = os.getenv("CORS_ALLOW_ALL", "false").lower() == "true"
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
+    allow_origins=["*"] if _allow_all else [
         "http://localhost:5173",
         "http://127.0.0.1:5173",
         "https://marketcats.vercel.app",
     ],
-    allow_credentials=True,
-    allow_methods=["*"],
+    allow_credentials=not _allow_all,  # credentials not allowed with wildcard
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
 
