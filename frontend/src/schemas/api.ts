@@ -28,7 +28,11 @@ export function parseOrWarn<T>(schema: z.ZodType<T>, data: unknown, label: strin
     console.warn(
       `[Zod] Schema mismatch for "${label}":`,
       result.error.flatten(),
+      'Raw response:',
+      data,
     )
+    // For array schemas, return empty array rather than crashing on .map()
+    if (schema instanceof z.ZodArray) return [] as unknown as T
     return data as T
   }
   return result.data

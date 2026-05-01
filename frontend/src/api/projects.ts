@@ -10,7 +10,14 @@ import {
 // ── Projects ──────────────────────────────────────────────────────────────────
 
 export const listProjects = () =>
-  api.get<Project[]>('/projects').then((r) => parseOrWarn(ProjectListSchema, r.data, 'listProjects'))
+  api.get<Project[]>('/projects').then((r) => {
+    const data = r.data
+    if (!Array.isArray(data)) {
+      console.error('[listProjects] Non-array response from backend:', data)
+      return [] as Project[]
+    }
+    return parseOrWarn(ProjectListSchema, data, 'listProjects')
+  })
 
 export const createProject = (name: string, description?: string) =>
   api.post<Project>('/projects', { name, description }).then((r) => r.data)
