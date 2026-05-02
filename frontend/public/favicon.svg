@@ -1,4 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <rect width="32" height="32" rx="8" fill="#1e3a8a"/>
-  <text x="5" y="23" font-family="system-ui, sans-serif" font-weight="900" font-size="20" fill="#ffffff">MC</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded background -->
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <!-- Price tag shape -->
+  <path d="M18 20 L18 38 L32 52 L46 38 L46 20 Q46 16 42 16 L22 16 Q18 16 18 20Z" fill="white" opacity="0.15"/>
+  <!-- Tag hole -->
+  <circle cx="36" cy="22" r="3" fill="white" opacity="0.5"/>
+  <!-- M letter -->
+  <path d="M16 42 L16 26 L24 36 L32 26 L32 42" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- C letter -->
+  <path d="M48 30 Q48 24 42 24 Q36 24 36 32 Q36 40 42 40 Q48 40 48 34" stroke="white" stroke-width="3.5" stroke-linecap="round" fill="none"/>
 </svg>
