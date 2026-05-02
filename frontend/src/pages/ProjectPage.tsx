@@ -246,7 +246,7 @@ export default function ProjectPage() {
   const lockedDimensions = dimensions.filter((d) => d.approved)
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6 p-4 sm:p-6">
       {/* Header */}
       <div className="flex items-center gap-4">
         <Link to="/" className="text-gray-400 hover:text-gray-600">
@@ -264,7 +264,7 @@ export default function ProjectPage() {
       </div>
 
       {/* Tab nav */}
-      <div className="flex gap-1 border-b border-gray-200">
+      <div className="flex gap-1 border-b border-gray-200 overflow-x-auto scrollbar-none -mx-4 sm:mx-0 px-4 sm:px-0">
         {TAB_ORDER.map((t) => {
           const unlocked = isTabUnlocked(t, project.status)
           return (

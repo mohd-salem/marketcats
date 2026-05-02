@@ -1,18 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#2563eb"/>
-      <stop offset="100%" stop-color="#1e3a8a"/>
-    </linearGradient>
-  </defs>
-  <!-- Rounded background -->
-  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
-  <!-- Price tag shape -->
-  <path d="M18 20 L18 38 L32 52 L46 38 L46 20 Q46 16 42 16 L22 16 Q18 16 18 20Z" fill="white" opacity="0.15"/>
-  <!-- Tag hole -->
-  <circle cx="36" cy="22" r="3" fill="white" opacity="0.5"/>
-  <!-- M letter -->
-  <path d="M16 42 L16 26 L24 36 L32 26 L32 42" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <!-- C letter -->
-  <path d="M48 30 Q48 24 42 24 Q36 24 36 32 Q36 40 42 40 Q48 40 48 34" stroke="white" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Background -->
+  <rect width="64" height="64" rx="14" fill="#1e3a8a"/>
+  <!-- Left ear (outer, white) -->
+  <polygon points="13,10 13,30 26,23" fill="white"/>
+  <!-- Right ear (outer, white) -->
+  <polygon points="51,10 51,30 38,23" fill="white"/>
+  <!-- Head -->
+  <circle cx="32" cy="39" r="18" fill="white"/>
+  <!-- Left ear inner -->
+  <polygon points="16,27 16,14 24,23" fill="#93c5fd"/>
+  <!-- Right ear inner -->
+  <polygon points="48,27 48,14 40,23" fill="#93c5fd"/>
+  <!-- Left eye -->
+  <circle cx="25" cy="37" r="4" fill="#1e3a8a"/>
+  <!-- Right eye -->
+  <circle cx="39" cy="37" r="4" fill="#1e3a8a"/>
+  <!-- Left eye highlight -->
+  <circle cx="26.5" cy="35.5" r="1.4" fill="white"/>
+  <!-- Right eye highlight -->
+  <circle cx="40.5" cy="35.5" r="1.4" fill="white"/>
+  <!-- Nose -->
+  <ellipse cx="32" cy="43" rx="2.5" ry="2" fill="#93c5fd"/>
 </svg>

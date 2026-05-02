@@ -22,7 +22,7 @@
     @apply btn bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
   }
   .card {
-    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-6;
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 p-4 sm:p-6;
   }
   .input {
     @apply block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm placeholder-gray-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500;
