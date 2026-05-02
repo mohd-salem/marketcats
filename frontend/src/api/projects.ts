@@ -32,7 +32,9 @@ export const uploadFile = (projectId: number, file: File) => {
   const form = new FormData()
   form.append('file', file)
   return api
-    .post<Project>(`/projects/${projectId}/upload`, form)
+    .post<Project>(`/projects/${projectId}/upload`, form, {
+      headers: { 'Content-Type': undefined },
+    })
     .then((r) => parseOrWarn(ProjectSchema, r.data, 'uploadFile'))
 }
 
