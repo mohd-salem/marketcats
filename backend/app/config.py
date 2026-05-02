@@ -23,9 +23,12 @@ class Settings(BaseSettings):
     sample_size_for_suggestions: int = 30
     categorization_batch_size: int = 10
 
-    class Config:
-        env_file = str(_ENV_FILE)
-        extra = "ignore"
+    model_config = {
+        # Only load .env file if it exists (skipped on Railway/production)
+        "env_file": str(_ENV_FILE) if _ENV_FILE.exists() else None,
+        "env_file_encoding": "utf-8",
+        "extra": "ignore",
+    }
 
 
 settings = Settings()
