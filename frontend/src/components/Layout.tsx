@@ -39,7 +39,7 @@ function SidebarContent({ onNav }: { onNav?: () => void }) {
         </NavLink>
       </nav>
       <div className="px-5 py-4 text-[10px] text-brand-400 border-t border-brand-700 tracking-wide">
-        Powered by Claude AI
+        &copy; {new Date().getFullYear()} RND Team. All rights reserved.
       </div>
     </>
   )
