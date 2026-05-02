@@ -8,8 +8,18 @@ const api = axios.create({
 api.interceptors.response.use(
   (res) => res,
   (err) => {
-    const message: string =
-      err.response?.data?.detail ?? err.message ?? 'Unknown error'
+    const detail = err.response?.data?.detail
+    let message: string
+    if (typeof detail === 'string') {
+      message = detail
+    } else if (Array.isArray(detail)) {
+      // FastAPI validation errors: [{loc, msg, type}]
+      message = detail.map((e: { loc?: string[]; msg?: string }) =>
+        e.loc ? `${e.loc.join('.')}: ${e.msg}` : e.msg ?? JSON.stringify(e)
+      ).join('; ')
+    } else {
+      message = err.message ?? 'Unknown error'
+    }
     return Promise.reject(new Error(message))
   },
 )
