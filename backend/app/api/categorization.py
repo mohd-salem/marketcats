@@ -226,7 +226,7 @@ def bulk_update_dimensions(
             dim.name = item.name
             dim.description = item.description
             dim.taxonomy_values = item.taxonomy_values
-            dim.approved = item.approved
+            # Do NOT change approved here — use lock/unlock endpoints instead
             dim.order = idx
         else:
             dim = CategorizationDimension(

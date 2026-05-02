@@ -288,7 +288,7 @@ export default function DimensionEditor({
         <button
           className="btn-primary flex items-center gap-1.5 disabled:opacity-50"
           onClick={() => onSave(drafts)}
-          disabled={saving || drafts.some((d) => d.approved)}
+          disabled={saving}
         >
           {saving ? 'Saving…' : 'Save all'}
         </button>

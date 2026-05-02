@@ -167,7 +167,7 @@ export default function ProjectPage() {
       qc.invalidateQueries({ queryKey: ['target-product', projectId] })
       toast.success('Target product saved')
     },
-    onError: () => toast.error('Failed to save target product'),
+    onError: (err: Error) => toast.error(err.message ?? 'Failed to save target product'),
   })
 
   const relevanceMut = useMutation({
@@ -177,16 +177,17 @@ export default function ProjectPage() {
       qc.invalidateQueries({ queryKey: ['relevance-job', projectId] })
       toast.success('Relevance classification started')
     },
-    onError: (err: any) => toast.error(err?.response?.data?.detail ?? 'Failed to start job'),
+    onError: (err: Error) => toast.error(err.message ?? 'Failed to start job'),
   })
 
   const suggestMut = useMutation({
     mutationFn: () => suggestDimensions(projectId, 5),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['dimensions', projectId] })
+      qc.invalidateQueries({ queryKey: ['project', projectId] })
       toast.success('AI suggested dimensions — review and lock before proceeding')
     },
-    onError: (err: any) => toast.error(err?.response?.data?.detail ?? 'AI suggestion failed'),
+    onError: (err: Error) => toast.error(err.message ?? 'AI suggestion failed'),
   })
 
   const saveDimsMut = useMutation({
@@ -195,7 +196,7 @@ export default function ProjectPage() {
       qc.invalidateQueries({ queryKey: ['dimensions', projectId] })
       toast.success('Dimensions saved')
     },
-    onError: (err: any) => toast.error(err?.response?.data?.detail ?? 'Save failed'),
+    onError: (err: Error) => toast.error(err.message ?? 'Save failed'),
   })
 
   const lockAllMut = useMutation({
@@ -205,7 +206,7 @@ export default function ProjectPage() {
       qc.invalidateQueries({ queryKey: ['project', projectId] })
       toast.success('All dimensions locked')
     },
-    onError: (err: any) => toast.error(err?.response?.data?.detail ?? 'Lock failed'),
+    onError: (err: Error) => toast.error(err.message ?? 'Lock failed'),
   })
 
   const catMut = useMutation({
@@ -215,7 +216,7 @@ export default function ProjectPage() {
       qc.invalidateQueries({ queryKey: ['cat-job', projectId] })
       toast.success('Categorization started')
     },
-    onError: (err: any) => toast.error(err?.response?.data?.detail ?? 'Failed to start job'),
+    onError: (err: Error) => toast.error(err.message ?? 'Failed to start job'),
   })
 
   const approveAllMut = useMutation({
