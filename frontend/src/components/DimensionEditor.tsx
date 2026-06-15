@@ -32,16 +32,19 @@ export default function DimensionEditor({
   const [valueInputs, setValueInputs] = useState<Record<number, string>>({})
 
   useEffect(() => {
-    setDrafts(
-      dimensions.map((d) => ({
+    setDrafts((prev) => {
+      // Preserve any unsaved local drafts (no id) so they survive background refetches
+      const unsaved = prev.filter((d) => !d.id)
+      const fromServer = dimensions.map((d) => ({
         id: d.id,
         name: d.name,
         description: d.description ?? '',
         taxonomy_values: d.taxonomy_values,
         approved: d.approved,
         order: d.order,
-      })),
-    )
+      }))
+      return [...fromServer, ...unsaved]
+    })
   }, [dimensions])
 
   const lockMut = useMutation({
