@@ -16,6 +16,7 @@ _is_sqlite = _DATABASE_URL.startswith("sqlite")
 engine = create_engine(
     _DATABASE_URL,
     connect_args={"check_same_thread": False} if _is_sqlite else {},
+    pool_pre_ping=True,  # detect stale connections before use
 )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()

@@ -98,11 +98,11 @@ async def upload_file(
 
     db.query(Product).filter(Product.project_id == project_id).delete()
 
-    products = [
-        Product(project_id=project_id, row_index=i, data=row)
-        for i, row in enumerate(rows)
-    ]
-    db.bulk_save_objects(products)
+    if rows:
+        db.execute(
+            Product.__table__.insert(),
+            [{"project_id": project_id, "row_index": i, "data": row} for i, row in enumerate(rows)],
+        )
 
     project.file_path = str(dest)
     project.original_filename = file.filename

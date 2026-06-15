@@ -6,6 +6,7 @@ and returns a list of row dicts plus the raw column list.
 """
 
 import io
+import math
 from pathlib import Path
 from typing import Any
 
@@ -46,6 +47,17 @@ def _normalise_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df.rename(columns=rename_map)
 
 
+def _json_safe(v: Any) -> Any:
+    """Ensure a value is JSON-serialisable for PostgreSQL (no float NaN/Inf)."""
+    if v is None:
+        return None
+    if isinstance(v, float) and (math.isnan(v) or math.isinf(v)):
+        return None
+    if isinstance(v, str):
+        return v.strip() or None
+    return v
+
+
 def parse_upload(file_path: Path) -> tuple[list[str], list[dict[str, Any]]]:
     """
     Parse a Helium 10 CSV or Excel export.
@@ -67,13 +79,11 @@ def parse_upload(file_path: Path) -> tuple[list[str], list[dict[str, Any]]]:
         raise ValueError(f"Unsupported file type: {suffix}. Use .csv, .xlsx, or .xls")
 
     df = _normalise_columns(df)
-    # Replace pandas NA / NaN with None
-    df = df.where(pd.notna(df), other=None)
-    # Strip whitespace from string values
-    df = df.apply(lambda col: col.map(lambda v: v.strip() if isinstance(v, str) else v))
-
     columns = list(df.columns)
-    rows = df.to_dict(orient="records")
+    rows = [
+        {k: _json_safe(v) for k, v in row.items()}
+        for row in df.to_dict(orient="records")
+    ]
     return columns, rows
 
 
@@ -91,6 +101,9 @@ def parse_upload_bytes(data: bytes, filename: str) -> tuple[list[str], list[dict
         raise ValueError(f"Unsupported file type: {suffix}")
 
     df = _normalise_columns(df)
-    df = df.where(pd.notna(df), other=None)
-    df = df.apply(lambda col: col.map(lambda v: v.strip() if isinstance(v, str) else v))
-    return list(df.columns), df.to_dict(orient="records")
+    columns = list(df.columns)
+    rows = [
+        {k: _json_safe(v) for k, v in row.items()}
+        for row in df.to_dict(orient="records")
+    ]
+    return columns, rows
